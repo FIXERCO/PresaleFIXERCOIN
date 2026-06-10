@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" id="html-tag">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="site-title">Fixer Coin | Presale</title>
+    
+    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js" type="application/javascript"></script>
+    
+    <script src="FixerPresaleABI.js" type="application/javascript"></script>
+    <script>
+        // Contract addresses
+        const presaleAddress = "0xec703a2D2c46500B9932EB68db6Bd07F65d990cA";
+        const usdtAddress = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913";
+
+        // Global contract variables
+        let presaleContract, usdtContract, signer;
+
+        // Initialize contracts
+        async function initContracts() {
+            if (window.ethereum) {
+                const provider = new ethers.providers.Web3Provider(window.ethereum);
+                signer = provider.getSigner();
+                presaleContract = new ethers.Contract(presaleAddress, presaleAbi, signer);
+                usdtContract = new ethers.Contract(usdtAddress, usdtAbi, signer);
+            }
+        }
+    </script>
+    <style>
+        @font-face {
+            font-family: 'B Nazanin';
+            src: local('B Nazanin'), local('BNazanin');
+        }
+
+        :root {
+            --bg-color: #0a1f33;
+            --card-bg: #0d2538;
+            --text-color: #ffffff;
+            --primary: #00ffcc;
+            --secondary: #ffb703;
+        }
+
+        [data-theme="light"] {
+            --bg-color: #f0f4f8;
+            --card-bg: #ffffff;
+            --text-color: #1a1a2e;
+            --primary: #00cc99;
+            --secondary: #ff9500;
+            --warning: #ff9500;
+            --text: #1a1a2e;
+            --text-muted: #666666;
+            --border: rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #0a1f33;
+            --card-bg: #0d2538;
+            --text-color: #ffffff;
+            --primary: #00ffcc;
+            --secondary: #ffb703;
+            --warning: #ffb703;
+            --text: #ffffff;
+            --text-muted: #7e8f9f;
+            --border: rgba(255, 255, 255, 0.06);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        html[dir="rtl"] * { font-family: 'B Nazanin', Tahoma, sans-serif; }
+        html[dir="ltr"] * { font-family: 'Segoe UI', Inter, sans-serif; }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 8%;
+            background: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(12px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-img {
+            height: 45px;
+            width: 45px;
+            object-fit: contain;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
+            background: #fff;
+            padding: 2px;
+            animation: floatLogo 3s ease-in-out infinite;
+        }
+
+        @keyframes floatLogo {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .btn-lang {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--primary);
+            border: 1px solid rgba(0, 255, 204, 0.3);
+            padding: 6px 12px;
+            border-radius: 16px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 13px;
+            transition: 0.3s;
+        }
+
+        .btn-lang:hover {
+            background: var(--primary);
+            color: var(--bg-color);
+        }
+
+        .btn-connect {
+            background: linear-gradient(45deg, var(--secondary), var(--primary));
+            color: var(--bg-color);
+            border: none;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-connect:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 255, 204, 0.4);
+        }
+
+        .hero-container {
+            padding: 160px 8% 80px 8%;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            justify-content: center;
+            min-height: 90vh;
+            gap: 40px;
+        }
+
+        .hero-text {
+            flex: 1;
+            min-width: 320px;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .hero-text h1 {
+            font-size: 44px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .hero-text h1 span { color: var(--primary); }
+
+        .hero-text p {
+            color: var(--text-muted);
+            font-size: 18px;
+            margin-bottom: 35px;
+            max-width: 550px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .presale-wrapper {
+            flex: 1;
+            min-width: 340px;
+            max-width: 460px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .presale-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .presale-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0, 255, 204, 0.3);
+        }
+
+        .panel-header-with-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .panel-logo {
+            height: 60px;
+            width: 60px;
+            background: #fff;
+            padding: 3px;
+            border-radius: 50%;
+            object-fit: contain;
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
+        }
+
+        .presale-card h3 { text-align: center; font-size: 22px; }
+
+        .presale-info-tag {
+            text-align: center;
+            font-size: 13px;
+            color: var(--primary);
+            background: rgba(0, 255, 204, 0.08);
+            padding: 8px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            font-weight: bold;
+        }
+
+        .input-group { margin-bottom: 20px; }
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-muted);
+            font-size: 14px;
+            text-align: left;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            text-align: left;
+            direction: ltr;
+        }
+
+        .dashboard-box {
+            background: rgba(0, 255, 204, 0.02);
+            border: 1px solid rgba(0, 255, 204, 0.1);
+        }
+
+        .db-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        .db-item {
+            background: rgba(0,0,0,0.2);
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .db-item span {
+            display: block;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .db-item b { font-size: 15px; color: var(--primary); font-family: monospace; }
+
+        .ref-input-wrapper {
+            display: flex;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 5px;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .ref-link-text {
+            flex: 1;
+            font-family: monospace !important;
+            font-size: 11px;
+            color: var(--text-muted);
+            padding: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .btn-copy-ref {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .guide-card {
+            background: rgba(255, 183, 3, 0.02);
+            border: 1px solid rgba(255, 183, 3, 0.2);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .guide-card h2 {
+            font-size: 24px;
+            color: var(--warning);
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 800;
+        }
+
+        .guide-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .guide-list li {
+            font-size: 15px;
+            color: #e2e8f0;
+            position: relative;
+            padding-left: 25px;
+            padding-right: 25px;
+            line-height: 1.7;
+            text-align: left;
+        }
+
+        .guide-list li::before { content: "⚡"; position: absolute; top: 0; left: 0; }
+
+        .chainlist-link {
+            display: inline-block;
+            margin-top: 8px;
+            color: var(--primary);
+            text-decoration: underline;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .chainlist-link:hover { color: #fff; }
+
+        .blinking-title {
+            color: #ff3333 !important;
+            font-size: 24px !important;
+            font-weight: 900 !important;
+            margin-bottom: 15px;
+            text-align: center;
+            animation: blinker 1.2s linear infinite;
+            display: block;
+        }
+
+        @keyframes blinker {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .balance-display {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: rgba(0, 255, 204, 0.05);
+            border: 1px solid rgba(0, 255, 204, 0.1);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .balance-display span {
+            color: var(--text-muted);
+        }
+
+        .balance-display b {
+            color: var(--primary);
+            font-size: 16px;
+        }
+
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn-approve {
+            background: linear-gradient(135deg, #ffb703, #ff9500);
+            color: #000;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-approve:hover {
+            background: linear-gradient(135deg, #ff9500, #ff7700);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 183, 3, 0.4);
+        }
+
+        .btn-buy {
+            background: linear-gradient(135deg, #00ffcc, #00ccaa);
+            color: #000;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-buy:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 255, 204, 0.4);
+        }
+
+        .btn-claim {
+            background: linear-gradient(135deg, #0077ff, #0055cc);
+            color: #fff;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-claim:hover {
+            background: linear-gradient(135deg, #0055cc, #003399);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 119, 255, 0.4);
+        }
+
+        .network-status {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 14px;
+            background: rgba(255, 183, 3, 0.1);
+            border: 1px solid rgba(255, 183, 3, 0.3);
+            color: #ffb703;
+            transition: all 0.3s ease;
+        }
+
+        .network-status.connected {
+            background: rgba(0, 255, 204, 0.1);
+            border-color: rgba(0, 255, 204, 0.3);
+            color: var(--primary);
+        }
+
+        .network-status.wrong-network {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+        }
+
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 15px 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 300px;
+            animation: slideIn 0.3s ease;
+        }
+
+        .toast.success { border-left: 4px solid #00ffcc; }
+        .toast.error { border-left: 4px solid #ff4444; }
+        .toast.warning { border-left: 4px solid #ffaa00; }
+        .toast.info { border-left: 4px solid #4488ff; }
+
+        .toast-icon { font-size: 20px; }
+        .toast-message { flex: 1; color: var(--text); font-size: 14px; }
+        .toast-close { cursor: pointer; color: var(--text-muted); font-size: 18px; }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 0.8s linear infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        button.loading .spinner {
+            display: inline-block;
+        }
+
+        button:not(.loading) .spinner {
+            display: none;
+        }
+
+        footer { text-align: center; padding: 40px; border-top: 1px solid var(--border); color: var(--text-muted); }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .logo-container {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .logo-text {
+                font-size: 18px;
+            }
+
+            .header-actions {
+                width: 100%;
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .btn-lang {
+                padding: 5px 10px;
+                font-size: 12px;
+            }
+
+            .btn-connect {
+                padding: 8px 16px;
+                font-size: 12px;
+            }
+
+            .hero-container {
+                padding: 120px 20px 40px 20px;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 24px;
+            }
+
+            .hero-text p {
+                font-size: 14px;
+            }
+
+            .presale-wrapper {
+                min-width: 100%;
+                max-width: 100%;
+            }
+
+            .presale-card {
+                padding: 20px;
+            }
+
+            .input-group input {
+                font-size: 14px;
+            }
+
+            .db-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Toast Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <header>
+        <div class="logo-container">
+            <img src="fixer_coin_bg.png" alt="Fixer Coin Logo" class="logo-img">
+            <span class="logo-text">FIXER COIN</span>
+        </div>
+        <div class="header-actions">
+            <button class="btn-lang" onclick="toggleLanguage()" id="lang-btn">فارسی</button>
+            <button class="btn-connect" onclick="connectWallet()" id="wallet-btn">Connect Wallet</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-container" id="home">
+            <div class="hero-text">
+                <h1 id="hero-title">Fixer Coin <br><span>Presale</span></h1>
+                <p id="hero-desc">Buy FIXER tokens at fixed price with USDT on Base Network. Secure, fast, and transparent presale.</p>
+            </div>
+
+            <div class="presale-wrapper" id="presale-section">
+                <div class="presale-card">
+                    <div class="panel-header-with-logo">
+                        <img src="fixer_coin_bg.png" alt="Fixer Coin Logo" class="panel-logo">
+                        <h3 id="panel-title">Public Presale Panel</h3>
+                    </div>
+                    <div class="presale-info-tag" id="presale-tag">Fixed Price: 0.0000015 USDT (Base) | Supply: 2B FIXER</div>
+                    <div class="input-group">
+                        <label id="label-pay">Pay with (USDT - Base Network)</label>
+                        <input type="number" id="usdtInput" placeholder="0.0" oninput="calculateTokens()">
+                    </div>
+                    <div class="input-group">
+                        <label id="label-received">Receive Token (FIXER)</label>
+                        <input type="text" id="fixerOutput" placeholder="0.0" disabled>
+                    </div>
+                    <div class="input-group">
+                        <label id="label-referrer">Referrer Address (Optional)</label>
+                        <input type="text" id="referrerInput" placeholder="0x...">
+                    </div>
+                    <div class="balance-display">
+                        <span id="label-usdt-balance">Your USDT Balance:</span>
+                        <b id="usdt-balance">0.0 USDT</b>
+                    </div>
+                    <div class="balance-display">
+                        <span id="label-reserved-balance">Reserved FIXER:</span>
+                        <b id="reserved-balance">0.0 FIXER</b>
+                    </div>
+                    <div class="button-group">
+                        <button class="btn-approve" id="approve-btn" onclick="approveUSDT()">Approve USDT</button>
+                        <button class="btn-buy" id="buy-btn" onclick="buyTokens()">Buy Fixer Token</button>
+                        <button class="btn-claim" id="claim-btn" onclick="claimTokens()">Claim Tokens</button>
+                    </div>
+                    <div class="network-status" id="network-status">
+                        ⚠️ Please connect your wallet and switch to Base Network
+                    </div>
+                </div>
+
+                <div class="presale-card dashboard-box">
+                    <h3 id="db-title">📊 Your Account Dashboard</h3>
+                    <div class="db-grid">
+                        <div class="db-item">
+                            <span id="db-purchased-lbl">Purchased FIXER</span>
+                            <b id="db-purchased">0.0</b>
+                        </div>
+                        <div class="db-item">
+                            <span id="db-refs-lbl">Total Referrals</span>
+                            <b id="db-refs">0</b>
+                        </div>
+                        <div class="db-item" style="grid-column: span 2;">
+                            <span id="db-bonus-lbl">Referral Bonus Collected</span>
+                            <b id="db-bonus">0.0 FIXER</b>
+                        </div>
+                    </div>
+                    <h4 style="color: var(--primary); font-size: 15px; margin-top: 15px; text-align: center;" id="ref-title">🔗 Invite & Earn 5% Bonus</h4>
+                    <div class="ref-input-wrapper">
+                        <div class="ref-link-text" id="ref-link-display">Please connect your wallet first...</div>
+                        <button class="btn-copy-ref" onclick="copyReferralLink()" id="ref-copy-btn">Copy Link</button>
+                    </div>
+                    <div style="text-align: center; margin-top: 15px;">
+                        <div id="qrcode-container" style="display: none; justify-content: center; margin-top: 10px;">
+                            <canvas id="qrcode"></canvas>
+                        </div>
+                        <button onclick="toggleQRCode()" id="qr-toggle-btn" style="margin-top: 10px; padding: 8px 16px; background: linear-gradient(135deg, #00ffcc, #00ccaa); border: none; border-radius: 8px; color: #000; font-weight: bold; cursor: pointer; font-size: 14px;">Show QR Code</button>
+                    </div>
+                </div>
+
+                <div class="guide-card">
+                    <h2 id="guide-title">🚨 CRITICAL BUYING GUIDE</h2>
+                    <ul class="guide-list">
+                        <li id="guide-li1">Ensure your **USDT (Tether) is strictly on the Base Network**. Sending USDT from other networks (like TRC20, ERC20, or BSC) will result in irreversible loss of funds.</li>
+                        <li id="guide-li2">Set your Web3 Wallet (MetaMask / Trust Wallet) **network selection to Base Network** before confirming the transaction.</li>
+                        <li id="guide-li3">Need help adding Base Network to your wallet? You can add it securely via Chainlist (Powered by Chainlink): <br><a href="https://chainlist.org/chain/8453" target="_blank" class="chainlist-link">👉 Click here to add Base Network via Chainlist</a></li>
+                        <li id="guide-li4">**Gas Fee Requirement:** All transactions require ETH (Base) for gas fees. Make sure you have enough ETH in your wallet to cover transaction costs.</li>
+                        <li id="guide-li5">**Token Delivery Policy:** Your purchased FIXER tokens and referral bonuses are securely tracked on-chain and will become claimable immediately after the public presale round officially concludes.</li>
+                        <li id="guide-li6">**Participation Limits:** Minimum and maximum participation in the presale for each wallet is 10 million to 200 million Fixer Coin tokens (15 USDT to 300 USDT).</li>
+                        <li id="guide-li7">**Automatic Calculation:** Enter USDT amount and the system will automatically calculate your Fixer Coin tokens based on the fixed price of 0.0000015 USDT per token.</li>
+                    </ul>
+                </div>
+
+                <div style="margin: 25px auto; max-width: 100%; text-align: center;">
+                    <h3 class="blinking-title" id="metamask-guide-title">
+                        🚨 METAMASK BUYING GUIDE
+                    </h3>
+                    <video width="100%" controls controlsList="nodownload" oncontextmenu="return false;" style="border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); max-height: 450px;" id="metamask-video">
+                        <source src="metamaskfixer.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+
+                <div style="margin: 35px auto 25px auto; max-width: 100%; text-align: center;">
+                    <h3 class="blinking-title" id="trustwallet-guide-title">
+                        🚨 TRUST WALLET BUYING GUIDE
+                    </h3>
+                    <video width="100%" controls controlsList="nodownload" oncontextmenu="return false;" style="border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); max-height: 450px;" id="trustwallet-video">
+                        <source src="trustwalletfixer.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Fixer Coin. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Language translations
+        const translations = {
+            en: {
+                siteTitle: "Fixer Coin | Presale",
+                heroTitle: "Fixer Coin <br><span>Presale</span>",
+                heroDesc: "Buy FIXER tokens at fixed price with USDT on Base Network. Secure, fast, and transparent presale.",
+                panelTitle: "Public Presale Panel",
+                presaleTag: "Fixed Price: 0.0000015 USDT (Base) | Supply: 2B FIXER",
+                labelPay: "Pay with (USDT - Base Network)",
+                labelReceived: "Receive Token (FIXER)",
+                labelReferrer: "Referrer Address (Optional)",
+                labelUsdtBalance: "Your USDT Balance:",
+                labelReservedBalance: "Reserved FIXER:",
+                approveBtn: "Approve USDT",
+                buyBtn: "Buy Fixer Token",
+                claimBtn: "Claim Tokens",
+                networkStatus: "⚠️ Please connect your wallet and switch to Base Network",
+                dbTitle: "📊 Your Account Dashboard",
+                dbPurchasedLbl: "Purchased FIXER",
+                dbRefsLbl: "Total Referrals",
+                dbBonusLbl: "Referral Bonus Collected",
+                refTitle: "🔗 Invite & Earn 5% Bonus",
+                refLinkDisplay: "Please connect your wallet first...",
+                refCopyBtn: "Copy Link",
+                qrToggleBtn: "Show QR Code",
+                guideTitle: "🚨 CRITICAL BUYING GUIDE",
+                guideLi1: "Ensure your **USDT (Tether) is strictly on the Base Network**. Sending USDT from other networks (like TRC20, ERC20, or BSC) will result in irreversible loss of funds.",
+                guideLi2: "Set your Web3 Wallet (MetaMask / Trust Wallet) **network selection to Base Network** before confirming the transaction.",
+                guideLi3: 'Need help adding Base Network to your wallet? You can add it securely via Chainlist (Powered by Chainlink): <br><a href="https://chainlist.org/chain/8453" target="_blank" class="chainlist-link">👉 Click here to add Base Network via Chainlist</a>',
+                guideLi4: "**Gas Fee Requirement:** All transactions require ETH (Base) for gas fees. Make sure you have enough ETH in your wallet to cover transaction costs.",
+                guideLi5: "**Token Delivery Policy:** Your purchased FIXER tokens and referral bonuses are securely tracked on-chain and will become claimable immediately after the public presale round officially concludes.",
+                guideLi6: "**Participation Limits:** Minimum and maximum participation in the presale for each wallet is 10 million to 200 million Fixer Coin tokens (15 USDT to 300 USDT).",
+                guideLi7: "**Automatic Calculation:** Enter USDT amount and the system will automatically calculate your Fixer Coin tokens based on the fixed price of 0.0000015 USDT per token.",
+                walletBtn: "Connect Wallet",
+                langBtn: "فارسی"
+            },
+            fa: {
+                siteTitle: "فیکسر کوین | پیش‌فروش",
+                heroTitle: "فیکسر کوین <br><span>پیش‌فروش</span>",
+                heroDesc: "خرید توکن فیکسر با قیمت ثابت با USDT روی شبکه Base. پیش‌فروش امن، سریع و شفاف.",
+                panelTitle: "پنل پیش‌فروش عمومی",
+                presaleTag: "قیمت ثابت: 0.0000015 USDT (Base) | عرضه: 2 میلیارد FIXER",
+                labelPay: "پرداخت با (USDT - شبکه Base)",
+                labelReceived: "دریافت توکن (FIXER)",
+                labelReferrer: "آدرس معرف (اختیاری)",
+                labelUsdtBalance: "موجودی USDT شما:",
+                labelReservedBalance: "FIXER رزرو شده:",
+                approveBtn: "تایید USDT",
+                buyBtn: "خرید توکن فیکسر",
+                claimBtn: "دریافت توکن‌ها",
+                networkStatus: "⚠️ لطفا کیف پول خود را متصل کرده و به شبکه Base سوئیچ کنید",
+                dbTitle: "📊 داشبورد حساب شما",
+                dbPurchasedLbl: "FIXER خریداری شده",
+                dbRefsLbl: "کل معرف‌ها",
+                dbBonusLbl: "پاداش رفرال جمع‌آوری شده",
+                refTitle: "🔗 دعوت و کسب 5% پاداش",
+                refLinkDisplay: "لطفا ابتدا کیف پول خود را متصل کنید...",
+                refCopyBtn: "کپی لینک",
+                qrToggleBtn: "نمایش QR کد",
+                guideTitle: "🚨 راهنمای خرید حیاتی",
+                guideLi1: "مطمئن شوید **USDT (تتر) شما دقیقاً روی شبکه Base است**. ارسال USDT از شبکه‌های دیگر (مثل TRC20، ERC20 یا BSC) منجر به از دست رفتن غیرقابل بازگشت وجوه می‌شود.",
+                guideLi2: "انتخاب شبکه کیف پول Web3 خود (MetaMask / Trust Wallet) را **قبل از تایید تراکنش روی شبکه Base تنظیم کنید**.",
+                guideLi3: 'برای کمک به اضافه کردن شبکه Base به کیف پول خود؟ می‌توانید آن را به صورت امن از طریق Chainlist (با قدرت Chainlink) اضافه کنید: <br><a href="https://chainlist.org/chain/8453" target="_blank" class="chainlist-link">👉 اینجا کلیک کنید تا شبکه Base را از طریق Chainlist اضافه کنید</a>',
+                guideLi4: "**نیاز به کارمزد گس:** تمام تراکنش‌ها به ETH (Base) برای کارمزد گس نیاز دارند. مطمئن شوید ETH کافی در کیف پول خود برای پوشش هزینه‌های تراکنش دارید.",
+                guideLi5: "**سیاست تحویل توکن:** توکن‌های FIXER خریداری شده و پاداش‌های رفرال شما به صورت امن در بلاکچین ردیابی می‌شوند و بلافاصله پس از پایان رسمی دور پیش‌فروش عمومی قابل دریافت خواهند بود.",
+                guideLi6: "**محدودیت‌های مشارکت:** حداقل و حداکثر مشارکت در پیش‌فروش برای هر کیف پول 10 میلیون تا 200 میلیون توکن فیکسر کوین (15 USDT تا 300 USDT) است.",
+                guideLi7: "**محاسبه خودکار:** مبلغ USDT را وارد کنید و سیستم به طور خودکار توکن‌های فیکسر کوین شما را بر اساس قیمت ثابت 0.0000015 USDT برای هر توکن محاسبه می‌کند.",
+                walletBtn: "اتصال کیف پول",
+                langBtn: "English"
+            }
+        };
+
+        let currentLang = 'en';
+        let userAddress = null;
+        const BASE_CHAIN_ID = '0x8453'; // Base network chain ID
+
+        // Toast notification system
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            const icons = {
+                success: '✓',
+                error: '✕',
+                warning: '⚠',
+                info: 'ℹ'
+            };
+            
+            toast.innerHTML = `
+                <span class="toast-icon">${icons[type]}</span>
+                <span class="toast-message">${message}</span>
+                <span class="toast-close" onclick="this.parentElement.remove()">✕</span>
+            `;
+            
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 5000);
+        }
+
+        // Language toggle
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'fa' : 'en';
+            document.documentElement.dir = currentLang === 'fa' ? 'rtl' : 'ltr';
+            applyTranslations();
+        }
+
+        function applyTranslations() {
+            const t = translations[currentLang];
+            
+            document.getElementById('site-title').textContent = t.siteTitle;
+            document.getElementById('hero-title').innerHTML = t.heroTitle;
+            document.getElementById('hero-desc').textContent = t.heroDesc;
+            document.getElementById('panel-title').textContent = t.panelTitle;
+            document.getElementById('presale-tag').textContent = t.presaleTag;
+            document.getElementById('label-pay').textContent = t.labelPay;
+            document.getElementById('label-received').textContent = t.labelReceived;
+            document.getElementById('label-referrer').textContent = t.labelReferrer;
+            document.getElementById('label-usdt-balance').textContent = t.labelUsdtBalance;
+            document.getElementById('label-reserved-balance').textContent = t.labelReservedBalance;
+            document.getElementById('approve-btn').textContent = t.approveBtn;
+            document.getElementById('buy-btn').textContent = t.buyBtn;
+            document.getElementById('claim-btn').textContent = t.claimBtn;
+            document.getElementById('network-status').textContent = t.networkStatus;
+            document.getElementById('db-title').textContent = t.dbTitle;
+            document.getElementById('db-purchased-lbl').textContent = t.dbPurchasedLbl;
+            document.getElementById('db-refs-lbl').textContent = t.dbRefsLbl;
+            document.getElementById('db-bonus-lbl').textContent = t.dbBonusLbl;
+            document.getElementById('ref-title').textContent = t.refTitle;
+            document.getElementById('ref-link-display').textContent = userAddress ? generateReferralLink() : t.refLinkDisplay;
+            document.getElementById('ref-copy-btn').textContent = t.refCopyBtn;
+            document.getElementById('qr-toggle-btn').textContent = t.qrToggleBtn;
+            document.getElementById('guide-title').textContent = t.guideTitle;
+            document.getElementById('guide-li1').innerHTML = t.guideLi1;
+            document.getElementById('guide-li2').innerHTML = t.guideLi2;
+            document.getElementById('guide-li3').innerHTML = t.guideLi3;
+            document.getElementById('guide-li4').innerHTML = t.guideLi4;
+            document.getElementById('guide-li5').innerHTML = t.guideLi5;
+            document.getElementById('guide-li6').innerHTML = t.guideLi6;
+            document.getElementById('guide-li7').innerHTML = t.guideLi7;
+            document.getElementById('wallet-btn').textContent = userAddress ? `${userAddress.slice(0, 6)}...${userAddress.slice(-4)}` : t.walletBtn;
+            document.getElementById('lang-btn').textContent = t.langBtn;
+        }
+
+        // Connect wallet
+        async function connectWallet() {
+            if (!window.ethereum) {
+                showToast('Please install MetaMask or Trust Wallet', 'error');
+                return;
+            }
+
+            try {
+                const provider = new ethers.providers.Web3Provider(window.ethereum);
+                await provider.send('eth_requestAccounts', []);
+                signer = provider.getSigner();
+                userAddress = await signer.getAddress();
+                
+                await initContracts();
+                await checkNetwork();
+                await updateBalances();
+                
+                document.getElementById('wallet-btn').textContent = `${userAddress.slice(0, 6)}...${userAddress.slice(-4)}`;
+                applyTranslations();
+                
+                showToast('Wallet connected successfully', 'success');
+            } catch (error) {
+                console.error(error);
+                showToast('Failed to connect wallet', 'error');
+            }
+        }
+
+        // Check network
+        async function checkNetwork() {
+            if (!window.ethereum) return;
+            
+            const network = await window.ethereum.request({ method: 'eth_chainId' });
+            const statusEl = document.getElementById('network-status');
+            
+            if (network.toLowerCase() === BASE_CHAIN_ID.toLowerCase()) {
+                statusEl.textContent = '✅ Connected to Base Network';
+                statusEl.className = 'network-status connected';
+            } else {
+                statusEl.textContent = '⚠️ Please switch to Base Network';
+                statusEl.className = 'network-status wrong-network';
+            }
+        }
+
+        // Update balances
+        async function updateBalances() {
+            if (!userAddress || !usdtContract) return;
+            
+            try {
+                const usdtBalance = await usdtContract.balanceOf(userAddress);
+                document.getElementById('usdt-balance').textContent = `${parseFloat(ethers.utils.formatEther(usdtBalance)).toFixed(2)} USDT`;
+                
+                if (presaleContract) {
+                    const reservedBalance = await presaleContract.userBalances(userAddress);
+                    document.getElementById('reserved-balance').textContent = `${parseFloat(ethers.utils.formatEther(reservedBalance)).toFixed(2)} FIXER`;
+                    document.getElementById('db-purchased').textContent = parseFloat(ethers.utils.formatEther(reservedBalance)).toFixed(2);
+                }
+            } catch (error) {
+                console.error('Error updating balances:', error);
+            }
+        }
+
+        // Calculate tokens
+        function calculateTokens() {
+            const usdtAmount = parseFloat(document.getElementById('usdtInput').value) || 0;
+            const tokenPrice = 0.0000015;
+            const tokens = usdtAmount / tokenPrice;
+            document.getElementById('fixerOutput').value = tokens.toFixed(2);
+        }
+
+        // Approve USDT
+        async function approveUSDT() {
+            if (!userAddress) {
+                showToast('Please connect your wallet first', 'warning');
+                return;
+            }
+
+            const usdtAmount = document.getElementById('usdtInput').value;
+            if (!usdtAmount || parseFloat(usdtAmount) <= 0) {
+                showToast('Please enter a valid USDT amount', 'warning');
+                return;
+            }
+
+            try {
+                const amount = ethers.utils.parseEther(usdtAmount);
+                const btn = document.getElementById('approve-btn');
+                btn.classList.add('loading');
+                btn.innerHTML = '<span class="spinner"></span> Approving...';
+                
+                const tx = await usdtContract.approve(presaleAddress, amount);
+                await tx.wait();
+                
+                btn.classList.remove('loading');
+                btn.textContent = translations[currentLang].approveBtn;
+                showToast('USDT approved successfully', 'success');
+            } catch (error) {
+                console.error(error);
+                const btn = document.getElementById('approve-btn');
+                btn.classList.remove('loading');
+                btn.textContent = translations[currentLang].approveBtn;
+                showToast('Failed to approve USDT', 'error');
+            }
+        }
+
+        // Buy tokens
+        async function buyTokens() {
+            if (!userAddress) {
+                showToast('Please connect your wallet first', 'warning');
+                return;
+            }
+
+            const usdtAmount = document.getElementById('usdtInput').value;
+            const referrer = document.getElementById('referrerInput').value;
+            
+            if (!usdtAmount || parseFloat(usdtAmount) <= 0) {
+                showToast('Please enter a valid USDT amount', 'warning');
+                return;
+            }
+
+            try {
+                const amount = ethers.utils.parseEther(usdtAmount);
+                const btn = document.getElementById('buy-btn');
+                btn.classList.add('loading');
+                btn.innerHTML = '<span class="spinner"></span> Buying...';
+                
+                const tx = await presaleContract.buyTokens(amount, referrer || '0x0000000000000000000000000000000000000000');
+                await tx.wait();
+                
+                btn.classList.remove('loading');
+                btn.textContent = translations[currentLang].buyBtn;
+                
+                await updateBalances();
+                showToast('Tokens purchased successfully', 'success');
+                
+                document.getElementById('usdtInput').value = '';
+                document.getElementById('fixerOutput').value = '';
+            } catch (error) {
+                console.error(error);
+                const btn = document.getElementById('buy-btn');
+                btn.classList.remove('loading');
+                btn.textContent = translations[currentLang].buyBtn;
+                showToast('Failed to buy tokens', 'error');
+            }
+        }
+
+        // Claim tokens
+        async function claimTokens() {
+            if (!userAddress) {
+                showToast('Please connect your wallet first', 'warning');
+                return;
+            }
+
+            try {
+                const btn = document.getElementById('claim-btn');
+                btn.classList.add('loading');
+                btn.innerHTML = '<span class="spinner"></span> Claiming...';
+                
+                const tx = await presaleContract.claimTokens();
+                await tx.wait();
+                
+                btn.classList.remove('loading');
+                btn.textContent = translations[currentLang].claimBtn;
+                
+                await updateBalances();
+                showToast('Tokens claimed successfully', 'success');
+            } catch (error) {
+                console.error(error);
+                const btn = document.getElementById('claim-btn');
+                btn.classList.remove('loading');
+                btn.textContent = translations[currentLang].claimBtn;
+                
+                if (error.message.includes('Claim is not active yet')) {
+                    showToast('Claim is not active yet', 'warning');
+                } else {
+                    showToast('Failed to claim tokens', 'error');
+                }
+            }
+        }
+
+        // Generate referral link
+        function generateReferralLink() {
+            if (!userAddress) return '';
+            return `${window.location.origin}${window.location.pathname}?ref=${userAddress}`;
+        }
+
+        // Copy referral link
+        function copyReferralLink() {
+            if (!userAddress) {
+                showToast('Please connect your wallet first', 'warning');
+                return;
+            }
+
+            const link = generateReferralLink();
+            navigator.clipboard.writeText(link).then(() => {
+                showToast('Referral link copied to clipboard', 'success');
+            }).catch(() => {
+                showToast('Failed to copy link', 'error');
+            });
+        }
+
+        // Toggle QR code
+        function toggleQRCode() {
+            if (!userAddress) {
+                showToast('Please connect your wallet first', 'warning');
+                return;
+            }
+
+            const container = document.getElementById('qrcode-container');
+            const canvas = document.getElementById('qrcode');
+            const btn = document.getElementById('qr-toggle-btn');
+
+            if (container.style.display === 'none' || container.style.display === '') {
+                const link = generateReferralLink();
+                QRCode.toCanvas(canvas, link, { width: 150 }, function(error) {
+                    if (error) console.error(error);
+                });
+                container.style.display = 'flex';
+                btn.textContent = 'Hide QR Code';
+            } else {
+                container.style.display = 'none';
+                btn.textContent = translations[currentLang].qrToggleBtn;
+            }
+        }
+
+        // Handle referral from URL
+        document.addEventListener("DOMContentLoaded", function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const refAddress = urlParams.get('ref');
+
+            if (refAddress) {
+                document.getElementById('referrerInput').value = refAddress;
+                localStorage.setItem('fixer_referrer', refAddress);
+            } else {
+                const savedRef = localStorage.getItem('fixer_referrer');
+                if (savedRef) {
+                    document.getElementById('referrerInput').value = savedRef;
+                }
+            }
+
+            // Listen for account changes
+            if (window.ethereum) {
+                window.ethereum.on('accountsChanged', function(accounts) {
+                    if (accounts.length > 0) {
+                        userAddress = accounts[0];
+                        connectWallet();
+                    } else {
+                        userAddress = null;
+                        document.getElementById('wallet-btn').textContent = translations[currentLang].walletBtn;
+                    }
+                });
+
+                window.ethereum.on('chainChanged', function(chainId) {
+                    checkNetwork();
+                });
+            }
+        });
+    </script>
+</body>
+</html>
