@@ -49,7 +49,7 @@
             --secondary: #ff9500;
             --warning: #ff9500;
             --text: #1a1a2e;
-            --text-muted: #666666;
+            --text-muted: #4a5568;
             --border: rgba(0, 0, 0, 0.1);
         }
 
@@ -61,8 +61,8 @@
             --secondary: #ffb703;
             --warning: #ffb703;
             --text: #ffffff;
-            --text-muted: #7e8f9f;
-            --border: rgba(255, 255, 255, 0.06);
+            --text-muted: #a0aec0;
+            --border: rgba(255, 255, 255, 0.1);
         }
 
         * {
@@ -172,7 +172,7 @@
             align-items: flex-start;
             justify-content: center;
             min-height: 90vh;
-            gap: 40px;
+            gap: 30px;
         }
 
         .hero-text {
@@ -180,6 +180,7 @@
             min-width: 320px;
             margin-top: 40px;
             text-align: center;
+            width: 100%;
         }
 
         .hero-text h1 {
@@ -200,6 +201,42 @@
             margin-right: auto;
         }
 
+        .contract-box {
+            background: var(--card-bg);
+            padding: 15px 20px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid var(--border);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .contract-address {
+            font-family: monospace !important;
+            color: var(--primary);
+            font-size: 13px;
+            word-break: break-all;
+            direction: ltr;
+        }
+
+        .btn-copy {
+            background: rgba(0, 255, 204, 0.1);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 6px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: 0.3s;
+        }
+
+        .btn-copy:hover {
+            background: var(--primary);
+            color: var(--bg-color);
+        }
+
         .presale-wrapper {
             flex: 1;
             min-width: 340px;
@@ -207,6 +244,33 @@
             display: flex;
             flex-direction: column;
             gap: 20px;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .guide-card {
+            background: rgba(255, 183, 3, 0.02);
+            border: 1px solid rgba(255, 183, 3, 0.2);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            height: fit-content;
+        }
+
+        .videos-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+            margin: 30px auto;
         }
 
         .presale-card {
@@ -662,11 +726,17 @@
     <main>
         <section class="hero-container" id="home">
             <div class="hero-text">
-                <h1 id="hero-title">Fixer Coin <br><span>Presale</span></h1>
-                <p id="hero-desc">Buy FIXER tokens at fixed price with USDT on Base Network. Secure, fast, and transparent presale.</p>
+                <h1 id="hero-title">Smart & Financial Ecosystem <br><span>Fixer Coin (FIXER)</span></h1>
+                <p id="hero-desc">An innovative project built on the secure and fast Base network (Base USDT) with an Anti-Dump tokenomics structure and optimized dynamic transaction fees.</p>
+                
+                <div class="contract-box" style="display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 30px;">
+                    <span class="contract-address">0xc5f7acfa7b540d0bbe61ad71927d479c0c91e3b2</span>
+                    <button class="btn-copy" onclick="copyContractAddress()">Copy</button>
+                </div>
             </div>
 
-            <div class="presale-wrapper" id="presale-section">
+            <div class="content-grid">
+                <div class="presale-wrapper" id="presale-section">
                 <div class="presale-card">
                     <div class="panel-header-with-logo">
                         <img src="fixer_coin_bg.png" alt="Fixer Coin Logo" class="panel-logo">
@@ -731,6 +801,7 @@
                         <button onclick="toggleQRCode()" id="qr-toggle-btn" style="margin-top: 10px; padding: 8px 16px; background: linear-gradient(135deg, #00ffcc, #00ccaa); border: none; border-radius: 8px; color: #000; font-weight: bold; cursor: pointer; font-size: 14px;">Show QR Code</button>
                     </div>
                 </div>
+                </div>
 
                 <div class="guide-card">
                     <h2 id="guide-title">🚨 CRITICAL BUYING GUIDE</h2>
@@ -744,8 +815,10 @@
                         <li id="guide-li7">**Automatic Calculation:** Enter USDT amount and the system will automatically calculate your Fixer Coin tokens based on the fixed price of 0.0000015 USDT per token.</li>
                     </ul>
                 </div>
+            </div>
 
-                <div style="margin: 25px auto; max-width: 100%; text-align: center;">
+            <div class="videos-container">
+                <div style="text-align: center;">
                     <h3 class="blinking-title" id="metamask-guide-title">
                         🚨 METAMASK BUYING GUIDE
                     </h3>
@@ -755,7 +828,7 @@
                     </video>
                 </div>
 
-                <div style="margin: 35px auto 25px auto; max-width: 100%; text-align: center;">
+                <div style="text-align: center;">
                     <h3 class="blinking-title" id="trustwallet-guide-title">
                         🚨 TRUST WALLET BUYING GUIDE
                     </h3>
@@ -1102,6 +1175,16 @@
         function generateReferralLink() {
             if (!userAddress) return '';
             return `${window.location.origin}${window.location.pathname}?ref=${userAddress}`;
+        }
+
+        // Copy contract address
+        function copyContractAddress() {
+            const address = '0xc5f7acfa7b540d0bbe61ad71927d479c0c91e3b2';
+            navigator.clipboard.writeText(address).then(() => {
+                showToast('Contract address copied to clipboard', 'success');
+            }).catch(() => {
+                showToast('Failed to copy address', 'error');
+            });
         }
 
         // Copy referral link
