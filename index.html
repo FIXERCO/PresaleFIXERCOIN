@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="site-title">Fixer Coin | Presale</title>
     
-    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js" type="application/javascript"></script>
+    <!-- Load Web3 libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Rye&family=Cinzel+Decorative:wght@700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     
-    <script src="FixerPresaleABI.js" type="application/javascript"></script>
+    <script src="FixerPresaleABI.js"></script>
     <script>
         // Wait for ethers to load
         window.addEventListener('load', function() {
@@ -170,7 +171,7 @@
 
         /* Credibility Section - Old Paper Style */
         .credibility-section {
-            background: url('paper.png') center/cover no-repeat;
+            background: url('paperen.png') center/cover no-repeat;
             background-color: #d4c5a9;
             border-radius: 8px;
             padding: 40px;
@@ -178,6 +179,10 @@
             max-width: 1200px;
             position: relative;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        [data-lang="fa"] .credibility-section {
+            background: url('paperpe.png') center/cover no-repeat;
         }
 
         .credibility-section::before {
