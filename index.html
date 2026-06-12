@@ -7,6 +7,7 @@
     
     <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js" type="application/javascript"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Rye&family=Cinzel+Decorative:wght@700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     
     <script src="FixerPresaleABI.js" type="application/javascript"></script>
     <script>
@@ -155,12 +156,13 @@
         }
 
         .credibility-title {
-            font-size: 28px;
+            font-size: 32px;
             font-weight: bold;
             color: #4a3728;
             text-align: center;
             margin-bottom: 30px;
-            font-family: 'Times New Roman', serif;
+            font-family: 'Rye', 'Cinzel Decorative', cursive;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
         .credibility-grid {
@@ -171,10 +173,11 @@
 
         .credibility-card {
             background: transparent;
-            border: 1px solid rgba(139, 90, 43, 0.4);
+            border: 2px solid rgba(139, 90, 43, 0.6);
             border-radius: 8px;
             padding: 25px;
             position: relative;
+            box-shadow: 3px 3px 10px rgba(0,0,0,0.2);
         }
 
         .credibility-card::before {
@@ -184,34 +187,56 @@
             left: -5px;
             right: -5px;
             bottom: -5px;
-            background: linear-gradient(45deg, rgba(139, 90, 43, 0.1), transparent);
+            background: linear-gradient(45deg, rgba(139, 90, 43, 0.2), transparent);
             border-radius: 10px;
             z-index: -1;
         }
 
         .credibility-card h4 {
-            font-size: 18px;
+            font-size: 22px;
             color: #5c4033;
             margin-bottom: 15px;
-            font-family: 'Times New Roman', serif;
+            font-family: 'Cinzel Decorative', 'Rye', cursive;
             font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
         }
 
         .credibility-card .english-text {
-            font-size: 14px;
-            color: #4a3728;
-            line-height: 1.8;
-            font-family: 'Courier New', 'Times New Roman', serif;
+            font-size: 15px;
+            color: #3d2b1f;
+            line-height: 1.9;
+            font-family: 'Rye', 'Playfair Display', serif;
             margin-bottom: 15px;
+            font-weight: bold;
+            display: block;
         }
 
         .credibility-card .persian-text {
-            font-size: 14px;
-            color: #4a3728;
-            line-height: 2;
-            font-family: 'B Nazanin', serif;
+            font-size: 15px;
+            color: #3d2b1f;
+            line-height: 2.2;
+            font-family: 'B Nazanin', 'Tahoma', serif;
             direction: rtl;
             text-align: right;
+            font-weight: bold;
+            display: none;
+        }
+
+        /* Show/hide based on language */
+        [data-lang="fa"] .credibility-card .persian-text {
+            display: block;
+        }
+
+        [data-lang="fa"] .credibility-card .english-text {
+            display: none;
+        }
+
+        [data-lang="en"] .credibility-card .english-text {
+            display: block;
+        }
+
+        [data-lang="en"] .credibility-card .persian-text {
+            display: none;
         }
 
         .header-actions {
@@ -1284,6 +1309,7 @@
         function applyTranslations() {
             const t = translations[currentLang];
             
+            document.documentElement.setAttribute('data-lang', currentLang);
             document.getElementById('site-title').textContent = t.siteTitle;
             document.getElementById('hero-title').innerHTML = t.heroTitle;
             document.getElementById('hero-desc').textContent = t.heroDesc;
@@ -1352,10 +1378,13 @@
                 document.getElementById('wallet-btn').textContent = `${userAddress.slice(0, 6)}...${userAddress.slice(-4)}`;
                 applyTranslations();
                 
+                // Generate referral link and QR code
+                generateReferral(userAddress);
+                
                 showToast('Wallet connected successfully', 'success');
             } catch (error) {
-                console.error(error);
-                showToast('Failed to connect wallet', 'error');
+                console.error('Wallet connection error:', error);
+                showToast('Failed to connect wallet: ' + error.message, 'error');
             }
         }
 
@@ -1508,6 +1537,43 @@
                     showToast('Failed to claim tokens', 'error');
                 }
             }
+        }
+
+        // Generate referral link and QR code
+        function generateReferral(address) {
+            if (!address) return;
+            
+            const link = `${window.location.origin}${window.location.pathname}?ref=${address}`;
+            const container = document.getElementById('qrcode-container');
+            const canvas = document.getElementById('qrcode');
+            
+            // Generate QR code with logo
+            QRCode.toCanvas(canvas, link, { width: 200 }, function(error) {
+                if (error) {
+                    console.error(error);
+                    return;
+                }
+                
+                // Add logo to center of QR code
+                const ctx = canvas.getContext('2d');
+                const img = new Image();
+                img.src = 'fixer_coin_bg.png';
+                img.onload = function() {
+                    const logoSize = 40;
+                    const x = (canvas.width - logoSize) / 2;
+                    const y = (canvas.height - logoSize) / 2;
+                    
+                    // Draw white background for logo
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fillRect(x - 2, y - 2, logoSize + 4, logoSize + 4);
+                    
+                    // Draw logo
+                    ctx.drawImage(img, x, y, logoSize, logoSize);
+                };
+            });
+            
+            // Show QR code container
+            container.style.display = 'flex';
         }
 
         // Generate referral link
