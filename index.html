@@ -7,7 +7,7 @@
     
     <!-- Load Web3 libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Rye&family=Cinzel+Decorative:wght@700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     
     <script src="FixerPresaleABI.js"></script>
@@ -18,6 +18,12 @@
                 console.error('Ethers.js failed to load');
             } else {
                 console.log('Ethers.js loaded successfully');
+            }
+            
+            if (typeof QRCode === 'undefined') {
+                console.error('QRCode library failed to load');
+            } else {
+                console.log('QRCode library loaded successfully');
             }
         });
 
@@ -103,7 +109,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 15px 8%;
-            background: rgba(11, 15, 25, 0.85);
+            background: rgba(128, 128, 128, 0.85);
             backdrop-filter: blur(12px);
             position: fixed;
             width: 100%;
@@ -186,7 +192,7 @@
             border-radius: 8px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             width: 100%;
-            max-height: 80vh;
+            max-height: 160vh;
             object-fit: contain;
         }
 
@@ -460,7 +466,7 @@
         }
 
         .presale-card {
-            background: var(--card-bg);
+            background: rgba(128, 128, 128, 0.85);
             padding: 30px;
             border-radius: 24px;
             border: 1px solid var(--border);
@@ -1591,6 +1597,11 @@
             
             if (!container || !canvas) {
                 console.error('QR code elements not found');
+                return;
+            }
+            
+            if (typeof QRCode === 'undefined') {
+                console.error('QRCode library is not loaded');
                 return;
             }
             
