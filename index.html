@@ -45,8 +45,8 @@
         }
 
         :root {
-            --bg-color: #0a2a2a;
-            --card-bg: #0d3535;
+            --bg-color: #2c241b;
+            --card-bg: #3d3226;
             --text-color: #ffffff;
             --primary: #00ffcc;
             --secondary: #ffb703;
@@ -85,6 +85,11 @@
 
         body {
             background-color: var(--bg-color);
+            background-image: url('backgroundsite.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-blend-mode: overlay;
             color: var(--text);
             line-height: 1.6;
             overflow-x: hidden;
@@ -180,6 +185,9 @@
             height: auto;
             border-radius: 8px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
         }
 
         [data-lang="fa"] .paper-image {
@@ -1390,19 +1398,6 @@
             document.getElementById('wallet-btn').textContent = userAddress ? `${userAddress.slice(0, 6)}...${userAddress.slice(-4)}` : t.walletBtn;
             document.getElementById('lang-btn').textContent = t.langBtn;
             document.getElementById('logo-subtext').textContent = t.logoSubtext;
-            document.getElementById('credibility-title').textContent = t.credibilityTitle;
-            document.getElementById('cred-1-title').textContent = t.cred1Title;
-            document.getElementById('cred-1-en').textContent = t.cred1En;
-            document.getElementById('cred-1-fa').textContent = t.cred1Fa;
-            document.getElementById('cred-2-title').textContent = t.cred2Title;
-            document.getElementById('cred-2-en').textContent = t.cred2En;
-            document.getElementById('cred-2-fa').textContent = t.cred2Fa;
-            document.getElementById('cred-3-title').textContent = t.cred3Title;
-            document.getElementById('cred-3-en').textContent = t.cred3En;
-            document.getElementById('cred-3-fa').textContent = t.cred3Fa;
-            document.getElementById('cred-4-title').textContent = t.cred4Title;
-            document.getElementById('cred-4-en').textContent = t.cred4En;
-            document.getElementById('cred-4-fa').textContent = t.cred4Fa;
         }
 
         // Connect wallet
@@ -1594,10 +1589,15 @@
             const container = document.getElementById('qrcode-container');
             const canvas = document.getElementById('qrcode');
             
+            if (!container || !canvas) {
+                console.error('QR code elements not found');
+                return;
+            }
+            
             // Generate QR code with logo
             QRCode.toCanvas(canvas, link, { width: 200 }, function(error) {
                 if (error) {
-                    console.error(error);
+                    console.error('QR code generation error:', error);
                     return;
                 }
                 
@@ -1617,10 +1617,10 @@
                     // Draw logo
                     ctx.drawImage(img, x, y, logoSize, logoSize);
                 };
+                
+                // Show QR code container
+                container.style.display = 'flex';
             });
-            
-            // Show QR code container
-            container.style.display = 'flex';
         }
 
         // Generate referral link
