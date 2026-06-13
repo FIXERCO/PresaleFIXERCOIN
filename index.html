@@ -192,8 +192,8 @@
         .paper-image-section {
             display: flex;
             justify-content: center;
-            margin-top: 50px;
-            margin-bottom: 50px;
+            margin-top: 80px;
+            margin-bottom: 80px;
         }
 
         .paper-title-section {
@@ -221,7 +221,6 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             width: 100%;
             object-fit: contain;
-            transform: scale(1.4);
         }
 
         [data-lang="fa"] .paper-image {
@@ -1153,7 +1152,7 @@
 
                 <!-- Paper Title -->
                 <div class="paper-title-section">
-                    <h2 class="paper-title" id="paper-title">Fixer Coin Presale</h2>
+                    <h2 class="paper-title" id="paper-title">Presale Fixer Coin</h2>
                 </div>
 
                 <!-- Paper Image Section -->
@@ -1313,6 +1312,7 @@
                 walletBtn: "Connect Wallet",
                 langBtn: "فارسی",
                 logoSubtext: "Presale",
+                paperTitle: "Presale Fixer Coin",
                 credibilityTitle: "Project Credibility",
                 cred1Title: "Project Credibility",
                 cred1En: "Fixer Coin is the antithesis of Ponzi schemes; we have absolutely no intention of dumping tokens on our holders. True to our mission, Fixer Coin is the flagship project fighting against scams and Ponzi-like tokens. We are setting a new standard for transparency and genuine value creation. With creative development and a committed team, Fixer Coin is pioneering innovative solutions across cutting-edge fields, including Artificial Intelligence (AI), Gaming, and DeFi.",
@@ -1329,7 +1329,7 @@
             },
             fa: {
                 siteTitle: "فیکسر کوین | پیش‌فروش",
-                heroTitle: "فیکسر کوین <br><span>پیش‌فروش</span>",
+                heroTitle: "پیش‌فروش فیکسر کوین",
                 heroDesc: "خرید توکن فیکسر با قیمت ثابت با USDT روی شبکه Base. پیش‌فروش امن، سریع و شفاف.",
                 panelTitle: "پنل پیش‌فروش عمومی",
                 presaleTag: "قیمت ثابت: 0.0000015 USDT (Base) | عرضه: 2 میلیارد FIXER",
@@ -1361,6 +1361,7 @@
                 walletBtn: "اتصال کیف پول",
                 langBtn: "English",
                 logoSubtext: "پیش فروش",
+                paperTitle: "پیش فروش فیکسر کوین",
                 credibilityTitle: "اعتبار پروژه",
                 cred1Title: "اعتبار پروژه",
                 cred1En: "Fixer Coin is the antithesis of Ponzi schemes; we have absolutely no intention of dumping tokens on our holders. True to our mission, Fixer Coin is the flagship project fighting against scams and Ponzi-like tokens. We are setting a new standard for transparency and genuine value creation. With creative development and a committed team, Fixer Coin is pioneering innovative solutions across cutting-edge fields, including Artificial Intelligence (AI), Gaming, and DeFi.",
@@ -1426,6 +1427,7 @@
             document.getElementById('presale-tag').textContent = t.presaleTag;
             document.getElementById('label-pay').textContent = t.labelPay;
             document.getElementById('label-received').textContent = t.labelReceived;
+            document.getElementById('paper-title').textContent = t.paperTitle;
             document.getElementById('label-referrer').textContent = t.labelReferrer;
             document.getElementById('label-usdt-balance').textContent = t.labelUsdtBalance;
             document.getElementById('label-reserved-balance').textContent = t.labelReservedBalance;
