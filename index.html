@@ -327,10 +327,14 @@
 
         html[dir="rtl"] .credibility-content h3 {
             font-family: 'Gramophone', serif;
+            text-align: center;
+            direction: rtl;
         }
 
         html[dir="rtl"] .credibility-content p {
             font-family: 'Gramophone', serif;
+            text-align: center;
+            direction: rtl;
         }
 
         .credibility-card {
@@ -577,13 +581,13 @@
         }
 
         .guide-card h2 {
-            font-family: 'B Nazanin', 'Tahoma', serif !important;
+            font-family: 'Times New Roman', serif !important;
             text-align: center;
             color: #000000 !important;
         }
 
         .guide-card ul {
-            font-family: 'B Nazanin', 'Tahoma', serif !important;
+            font-family: 'Times New Roman', serif !important;
             text-align: left;
             direction: ltr;
             color: #000000 !important;
@@ -1259,17 +1263,17 @@
                 <div class="credibility-section">
                     <h2 class="credibility-title" id="credibility-title">Why Participate in Fixer Coin Presale?</h2>
                     <div class="credibility-content" id="credibility-content">
-                        <h3>Project Credibility</h3>
-                        <p>Fixer Coin is the antithesis of Ponzi schemes; we have absolutely no intention of dumping tokens on our holders. True to our mission, Fixer Coin is the flagship project fighting against scams and Ponzi-like tokens. We are setting a new standard for transparency and genuine value creation. With creative development and a committed team, Fixer Coin is pioneering innovative solutions across cutting-edge fields, including Artificial Intelligence (AI), Gaming, and DeFi.</p>
-                        
-                        <h3>Strategic Growth Fees</h3>
-                        <p>Our initial 50% transaction fee is a strategic incentive designed to reward long-term holders. These accumulated fees are directly utilized for massive token burns, rewards for loyal holders, funding listings on Centralized Exchanges (CEX), and liquidity injections—all creating consistent upward pressure on the price. As the ecosystem matures, fees will be reduced step-by-step until reaching zero-fee maturity.</p>
-                        
-                        <h3>Anti-Whale Protection</h3>
-                        <p>We ensure a fair playing field for every community member. Our contract includes strict transaction limits and anti-dump mechanisms to prevent market manipulation, ensuring long-term price stability and protecting your investment from sudden volatility.</p>
-                        
-                        <h3>Hardened Security</h3>
-                        <p>Safety is our top priority. The Fixer Coin smart contract is built on the Base network using industry-standard OpenZeppelin protocols. We have integrated an emergency recovery feature to ensure your assets are safe and secure at all times.</p>
+                        <h3 id="cred1-title">Project Credibility</h3>
+                        <p id="cred1-text">Fixer Coin is the antithesis of Ponzi schemes; we have absolutely no intention of dumping tokens on our holders. True to our mission, Fixer Coin is the flagship project fighting against scams and Ponzi-like tokens. We are setting a new standard for transparency and genuine value creation. With creative development and a committed team, Fixer Coin is pioneering innovative solutions across cutting-edge fields, including Artificial Intelligence (AI), Gaming, and DeFi.</p>
+
+                        <h3 id="cred2-title">Strategic Growth Fees</h3>
+                        <p id="cred2-text">Our initial 50% transaction fee is a strategic incentive designed to reward long-term holders. These accumulated fees are directly utilized for massive token burns, rewards for loyal holders, funding listings on Centralized Exchanges (CEX), and liquidity injections—all creating consistent upward pressure on the price. As the ecosystem matures, fees will be reduced step-by-step until reaching zero-fee maturity.</p>
+
+                        <h3 id="cred3-title">Anti-Whale Protection</h3>
+                        <p id="cred3-text">We ensure a fair playing field for every community member. Our contract includes strict transaction limits and anti-dump mechanisms to prevent market manipulation, ensuring long-term price stability and protecting your investment from sudden volatility.</p>
+
+                        <h3 id="cred4-title">Hardened Security</h3>
+                        <p id="cred4-text">Safety is our top priority. The Fixer Coin smart contract is built on the Base network using industry-standard OpenZeppelin protocols. We have integrated an emergency recovery feature to ensure your assets are safe and secure at all times.</p>
                     </div>
                 </div>
 
@@ -1417,6 +1421,14 @@
                 guideLi5: "🎁 <b>Token Delivery:</b> Tokens and referral bonus become claimable after presale ends.",
                 guideLi6: "📊 <b>Participation Limits:</b> Minimum 15 USDT and maximum 300 USDT per wallet.",
                 guideLi7: "🧮 <b>Auto Calculation:</b> System automatically calculates tokens based on fixed price.",
+                guideTitleFa: "🚨 راهنمای خرید حیاتی",
+                guideLi1Fa: "✅ <b>شبکه USDT:</b> مطمئن شوید USDT شما دقیقاً روی شبکه Base است. ارسال از شبکه‌های دیگر (TRC20، ERC20، BSC) منجر به از دست رفتن وجوه می‌شود.",
+                guideLi2Fa: "🔗 <b>تنظیم شبکه:</b> کیف پول خود (MetaMask/Trust Wallet) را روی شبکه Base تنظیم کنید قبل از تایید تراکنش.",
+                guideLi3Fa: "➕ <b>اضافه کردن شبکه Base:</b> از طریق Chainlist اضافه کنید: <br><a href='https://chainlist.org/chain/8453' target='_blank' class='chainlist-link'>👉 اضافه کردن Base Network</a>",
+                guideLi4Fa: "⛽ <b>کارمزد گس:</b> به ETH (Base) برای کارمزد تراکنش نیاز دارید. مطمئن شوید ETH کافی دارید.",
+                guideLi5Fa: "🎁 <b>تحویل توکن:</b> توکن‌ها و پاداش رفرال بعد از پایان پیش‌فروش قابل دریافت هستند.",
+                guideLi6Fa: "📊 <b>محدودیت مشارکت:</b> حداقل 15 USDT و حداکثر 300 USDT برای هر کیف پول.",
+                guideLi7Fa: "🧮 <b>محاسبه خودکار:</b> سیستم به طور خودکار توکن‌ها را محاسبه می‌کند.",
                 walletBtn: "Connect Wallet",
                 langBtn: "فارسی",
                 logoSubtext: "Presale",
@@ -1424,15 +1436,21 @@
                 credibilityTitle: "Why Participate in Fixer Coin Presale?",
                 credibilityTitleFa: "چرا در پیش‌فروش فیکسر کوین شرکت کنیم؟",
                 cred1Title: "Project Credibility",
-                cred1En: "Fixer Coin is the antithesis of Ponzi schemes; we have absolutely no intention of dumping tokens on our holders. True to our mission, Fixer Coin is the flagship project fighting against scams and Ponzi-like tokens. We are setting a new standard for transparency and genuine value creation. With creative development and a committed team, Fixer Coin is pioneering innovative solutions across cutting-edge fields, including Artificial Intelligence (AI), Gaming, and DeFi.",
-                cred1Fa: "«فیکسر کوین (Fixer Coin) برخلاف پروژه‌های پانزی، هیچ قصدی برای دامپ توکن بر روی هولدرهای خود ندارد. همان‌طور که از نام ما پیداست، فیکسر کوین پرچم‌دار مبارزه با ارزهای پانزی و اسکم است. ما در حال بنا کردن استانداردی جدید از شفافیت و ارزش‌آفرینی واقعی هستیم. با ایده‌های خلاقانه و تیمی متعهد، فیکسر کوین گام‌های بلندی در حوزه‌های پیشرو نظیر هوش مصنوعی (AI)، بازی‌سازی (Gaming) و امور مالی غیرمتمرکز (DeFi) خواهد برداشت.»",
+                cred1Text: "Fixer Coin is the antithesis of Ponzi schemes; we have absolutely no intention of dumping tokens on our holders. True to our mission, Fixer Coin is the flagship project fighting against scams and Ponzi-like tokens. We are setting a new standard for transparency and genuine value creation. With creative development and a committed team, Fixer Coin is pioneering innovative solutions across cutting-edge fields, including Artificial Intelligence (AI), Gaming, and DeFi.",
+                cred1TitleFa: "اعتبار پروژه",
+                cred1TextFa: "«فیکسر کوین (Fixer Coin) برخلاف پروژه‌های پانزی، هیچ قصدی برای دامپ توکن بر روی هولدرهای خود ندارد. همان‌طور که از نام ما پیداست، فیکسر کوین پرچم‌دار مبارزه با ارزهای پانزی و اسکم است. ما در حال بنا کردن استانداردی جدید از شفافیت و ارزش‌آفرینی واقعی هستیم. با ایده‌های خلاقانه و تیمی متعهد، فیکسر کوین گام‌های بلندی در حوزه‌های پیشرو نظیر هوش مصنوعی (AI)، بازی‌سازی (Gaming) و امور مالی غیرمتمرکز (DeFi) خواهد برداشت.»",
                 cred2Title: "Strategic Growth Fees",
-                cred2En: "Our initial 50% transaction fee is a strategic incentive designed to reward long-term holders. These accumulated fees are directly utilized for massive token burns, rewards for loyal holders, funding listings on Centralized Exchanges (CEX), and liquidity injections—all creating consistent upward pressure on the price. As the ecosystem matures, fees will be reduced step-by-step until reaching zero-fee maturity.",
-                cred2Fa: "«کارمزد تراکنش ۵۰ درصدی اولیه، یک مشوق استراتژیک برای حمایت از هولدرهای بلندمدت است. این کارمزدهای جمع‌آوری شده مستقیماً صرف توکن‌سوزی گسترده، توزیع بین هولدرهای وفادار، تأمین هزینه‌های لیست شدن در صرافی‌های متمرکز (CEX) و تزریق نقدینگی می‌شود که باعث ایجاد فشار صعودی بر قیمت فیکسر کوین می‌گردد. با پایدار شدن اکوسیستم، کارمزدها پله‌به‌پله کاهش می‌یابد تا در نهایت به صفر برسد.»",
+                cred2Text: "Our initial 50% transaction fee is a strategic incentive designed to reward long-term holders. These accumulated fees are directly utilized for massive token burns, rewards for loyal holders, funding listings on Centralized Exchanges (CEX), and liquidity injections—all creating consistent upward pressure on the price. As the ecosystem matures, fees will be reduced step-by-step until reaching zero-fee maturity.",
+                cred2TitleFa: "استراتژی کارمزد رشد محور",
+                cred2TextFa: "«کارمزد تراکنش ۵۰ درصدی اولیه، یک مشوق استراتژیک برای حمایت از هولدرهای بلندمدت است. این کارمزدهای جمع‌آوری شده مستقیماً صرف توکن‌سوزی گسترده، توزیع بین هولدرهای وفادار، تأمین هزینه‌های لیست شدن در صرافی‌های متمرکز (CEX) و تزریق نقدینگی می‌شود که باعث ایجاد فشار صعودی بر قیمت فیکسر کوین می‌گردد. با پایدار شدن اکوسیستم، کارمزدها پله‌به‌پله کاهش می‌یابد تا در نهایت به صفر برسد.»",
                 cred3Title: "Anti-Whale Protection",
-                cred3En: "We ensure a fair playing field for every community member. Our contract includes strict transaction limits and anti-dump mechanisms to prevent market manipulation, ensuring long-term price stability and protecting your investment from sudden volatility.",
-                cred3Fa: "«ما محیطی عادلانه برای همه اعضای جامعه تضمین می‌کنیم. قرارداد هوشمند ما شامل محدودیت‌های سخت‌گیرانه در تراکنش‌ها و مکانیزم‌های ضدِ دامپ (فروش ناگهانی) است تا از دستکاری بازار جلوگیری شود و پایداری قیمت در بلندمدت برای محافظت از سرمایه شما حفظ شود.»",
+                cred3Text: "We ensure a fair playing field for every community member. Our contract includes strict transaction limits and anti-dump mechanisms to prevent market manipulation, ensuring long-term price stability and protecting your investment from sudden volatility.",
+                cred3TitleFa: "حفاظت در برابر نهنگ‌ها",
+                cred3TextFa: "«ما محیطی عادلانه برای همه اعضای جامعه تضمین می‌کنیم. قرارداد هوشمند ما شامل محدودیت‌های سخت‌گیرانه در تراکنش‌ها و مکانیزم‌های ضدِ دامپ (فروش ناگهانی) است تا از دستکاری بازار جلوگیری شود و پایداری قیمت در بلندمدت برای محافظت از سرمایه شما حفظ شود.»",
                 cred4Title: "Hardened Security",
+                cred4Text: "Safety is our top priority. The Fixer Coin smart contract is built on the Base network using industry-standard OpenZeppelin protocols. We have integrated an emergency recovery feature to ensure your assets are safe and secure at all times.",
+                cred4TitleFa: "امنیت تقویت شده",
+                cred4TextFa: "«امنیت اولویت اصلی ماست. قرارداد هوشمند فیکسر کوین بر روی شبکه Base با استفاده از پروتکل‌های استاندارد صنعتی OpenZeppelin ساخته شده است. ما یک ویژگی بازیابی اضطراری را ادغام کرده‌ایم تا اطمینان حاصل کنیم که دارایی‌های شما همیشه امن و محافظت شده هستند.»",
                 cred4En: "Safety is our top priority. The Fixer Coin smart contract is built on the Base network using industry-standard OpenZeppelin protocols. We have integrated an emergency recovery feature to ensure your assets are safe and secure at all times.",
                 cred4Fa: "«امنیت اولویت اصلی ماست. قرارداد هوشمند فیکسر کوین (Fixer Coin) بر بستر شبکه Base و با استفاده از پروتکل‌های استاندارد و معتبر OpenZeppelin ساخته شده است. ما یک قابلیت بازیابی اضطراری نیز تعبیه کرده‌ایم تا امنیت دارایی‌های شما در هر لحظه تضمین شود.»"
             },
@@ -1552,18 +1570,26 @@
             document.getElementById('ref-link-display').textContent = userAddress ? generateReferralLink() : t.refLinkDisplay;
             document.getElementById('ref-copy-btn').textContent = t.refCopyBtn;
             document.getElementById('qr-toggle-btn').textContent = t.qrToggleBtn;
-            document.getElementById('guide-title').textContent = t.guideTitle;
-            document.getElementById('guide-li1').innerHTML = t.guideLi1;
-            document.getElementById('guide-li2').innerHTML = t.guideLi2;
-            document.getElementById('guide-li3').innerHTML = t.guideLi3;
-            document.getElementById('guide-li4').innerHTML = t.guideLi4;
-            document.getElementById('guide-li5').innerHTML = t.guideLi5;
-            document.getElementById('guide-li6').innerHTML = t.guideLi6;
-            document.getElementById('guide-li7').innerHTML = t.guideLi7;
+            document.getElementById('guide-title').textContent = currentLang === 'fa' ? t.guideTitleFa : t.guideTitle;
+            document.getElementById('guide-li1').innerHTML = currentLang === 'fa' ? t.guideLi1Fa : t.guideLi1;
+            document.getElementById('guide-li2').innerHTML = currentLang === 'fa' ? t.guideLi2Fa : t.guideLi2;
+            document.getElementById('guide-li3').innerHTML = currentLang === 'fa' ? t.guideLi3Fa : t.guideLi3;
+            document.getElementById('guide-li4').innerHTML = currentLang === 'fa' ? t.guideLi4Fa : t.guideLi4;
+            document.getElementById('guide-li5').innerHTML = currentLang === 'fa' ? t.guideLi5Fa : t.guideLi5;
+            document.getElementById('guide-li6').innerHTML = currentLang === 'fa' ? t.guideLi6Fa : t.guideLi6;
+            document.getElementById('guide-li7').innerHTML = currentLang === 'fa' ? t.guideLi7Fa : t.guideLi7;
             document.getElementById('wallet-btn').textContent = userAddress ? `${userAddress.slice(0, 6)}...${userAddress.slice(-4)}` : t.walletBtn;
             document.getElementById('lang-btn').textContent = t.langBtn;
             document.getElementById('logo-subtext').textContent = t.logoSubtext;
             document.getElementById('credibility-title').textContent = currentLang === 'fa' ? t.credibilityTitleFa : t.credibilityTitle;
+            document.getElementById('cred1-title').textContent = currentLang === 'fa' ? t.cred1TitleFa : t.cred1Title;
+            document.getElementById('cred1-text').textContent = currentLang === 'fa' ? t.cred1TextFa : t.cred1Text;
+            document.getElementById('cred2-title').textContent = currentLang === 'fa' ? t.cred2TitleFa : t.cred2Title;
+            document.getElementById('cred2-text').textContent = currentLang === 'fa' ? t.cred2TextFa : t.cred2Text;
+            document.getElementById('cred3-title').textContent = currentLang === 'fa' ? t.cred3TitleFa : t.cred3Title;
+            document.getElementById('cred3-text').textContent = currentLang === 'fa' ? t.cred3TextFa : t.cred3Text;
+            document.getElementById('cred4-title').textContent = currentLang === 'fa' ? t.cred4TitleFa : t.cred4Title;
+            document.getElementById('cred4-text').textContent = currentLang === 'fa' ? t.cred4TextFa : t.cred4Text;
         }
 
         // Connect wallet
