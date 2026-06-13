@@ -289,10 +289,16 @@
         .credibility-title {
             font-family: 'Western', serif;
             text-align: center;
-            font-size: 32px;
+            font-size: 36px;
             color: #000000 !important;
             margin-bottom: 30px;
             font-weight: bold;
+            animation: blink-black-yellow 1s infinite;
+        }
+
+        @keyframes blink-black-yellow {
+            0%, 100% { color: #000000; }
+            50% { color: #FFD700; }
         }
 
         .credibility-content h3 {
@@ -316,6 +322,7 @@
 
         html[dir="rtl"] .credibility-title {
             font-family: 'Gramophone', serif;
+            animation: blink-black-yellow 1s infinite;
         }
 
         html[dir="rtl"] .credibility-content h3 {
@@ -586,12 +593,14 @@
             font-family: 'B Nazanin', 'Tahoma', serif !important;
             text-align: right;
             direction: rtl;
+            color: #000000 !important;
         }
 
         html[dir="rtl"] .guide-card ul {
             font-family: 'B Nazanin', 'Tahoma', serif !important;
             text-align: right;
             direction: rtl;
+            color: #000000 !important;
         }
 
         .videos-container {
@@ -1248,7 +1257,7 @@
 
                 <!-- Credibility Section -->
                 <div class="credibility-section">
-                    <h2 class="credibility-title" id="credibility-title">Why Participate in Fixer Coin Presale</h2>
+                    <h2 class="credibility-title" id="credibility-title">Why Participate in Fixer Coin Presale?</h2>
                     <div class="credibility-content" id="credibility-content">
                         <h3>Project Credibility</h3>
                         <p>Fixer Coin is the antithesis of Ponzi schemes; we have absolutely no intention of dumping tokens on our holders. True to our mission, Fixer Coin is the flagship project fighting against scams and Ponzi-like tokens. We are setting a new standard for transparency and genuine value creation. With creative development and a committed team, Fixer Coin is pioneering innovative solutions across cutting-edge fields, including Artificial Intelligence (AI), Gaming, and DeFi.</p>
@@ -1412,7 +1421,8 @@
                 langBtn: "فارسی",
                 logoSubtext: "Presale",
                 paperTitle: "Presale Fixer Coin",
-                credibilityTitle: "Why Participate in Fixer Coin Presale",
+                credibilityTitle: "Why Participate in Fixer Coin Presale?",
+                credibilityTitleFa: "چرا در پیش‌فروش فیکسر کوین شرکت کنیم؟",
                 cred1Title: "Project Credibility",
                 cred1En: "Fixer Coin is the antithesis of Ponzi schemes; we have absolutely no intention of dumping tokens on our holders. True to our mission, Fixer Coin is the flagship project fighting against scams and Ponzi-like tokens. We are setting a new standard for transparency and genuine value creation. With creative development and a committed team, Fixer Coin is pioneering innovative solutions across cutting-edge fields, including Artificial Intelligence (AI), Gaming, and DeFi.",
                 cred1Fa: "«فیکسر کوین (Fixer Coin) برخلاف پروژه‌های پانزی، هیچ قصدی برای دامپ توکن بر روی هولدرهای خود ندارد. همان‌طور که از نام ما پیداست، فیکسر کوین پرچم‌دار مبارزه با ارزهای پانزی و اسکم است. ما در حال بنا کردن استانداردی جدید از شفافیت و ارزش‌آفرینی واقعی هستیم. با ایده‌های خلاقانه و تیمی متعهد، فیکسر کوین گام‌های بلندی در حوزه‌های پیشرو نظیر هوش مصنوعی (AI)، بازی‌سازی (Gaming) و امور مالی غیرمتمرکز (DeFi) خواهد برداشت.»",
@@ -1553,7 +1563,7 @@
             document.getElementById('wallet-btn').textContent = userAddress ? `${userAddress.slice(0, 6)}...${userAddress.slice(-4)}` : t.walletBtn;
             document.getElementById('lang-btn').textContent = t.langBtn;
             document.getElementById('logo-subtext').textContent = t.logoSubtext;
-            document.getElementById('credibility-title').textContent = t.credibilityTitle;
+            document.getElementById('credibility-title').textContent = currentLang === 'fa' ? t.credibilityTitleFa : t.credibilityTitle;
         }
 
         // Connect wallet
