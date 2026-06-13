@@ -1321,6 +1321,9 @@
                     <div class="network-status" id="network-status">
                         ⚠️ Please connect your wallet and switch to Base Network
                     </div>
+                    <button class="btn-switch-network" onclick="switchToBaseNetwork()" id="switch-network-btn" style="display: none; margin-top: 10px; padding: 12px; background: linear-gradient(135deg, #ff6b6b, #ee5a5a); color: #fff; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s;">
+                        🔄 Switch to Base Network
+                    </button>
                 </div>
 
                 <div class="presale-card dashboard-box">
@@ -1664,15 +1667,70 @@
         }
 
         async function updateAdminStats() {
-            if (!presaleContract) return;
+            if (!presaleContract) {
+                console.log('Presale contract not initialized');
+                return;
+            }
             
             try {
-                // Get total USDT raised (this would need to be implemented in the contract)
-                // For now, showing placeholder values
-                const totalUSDT = 0; // This would come from contract
-                const totalTokens = 0; // This would come from contract
-                const participants = 0; // This would come from contract
-                const referrals = 0; // This would come from contract
+                // Try to get stats from contract - these function names may need to be adjusted
+                // based on your actual smart contract functions
+                let totalUSDT = 0;
+                let totalTokens = 0;
+                let participants = 0;
+                let referrals = 0;
+
+                try {
+                    // Try common function names for total USDT raised
+                    if (presaleContract.totalUSDTRaised) {
+                        totalUSDT = await presaleContract.totalUSDTRaised();
+                        totalUSDT = parseFloat(ethers.utils.formatEther(totalUSDT));
+                    } else if (presaleContract.totalRaised) {
+                        totalUSDT = await presaleContract.totalRaised();
+                        totalUSDT = parseFloat(ethers.utils.formatEther(totalUSDT));
+                    } else if (presaleContract.raisedAmount) {
+                        totalUSDT = await presaleContract.raisedAmount();
+                        totalUSDT = parseFloat(ethers.utils.formatEther(totalUSDT));
+                    }
+                } catch (e) {
+                    console.log('Could not get total USDT:', e);
+                }
+
+                try {
+                    // Try common function names for total tokens sold
+                    if (presaleContract.totalTokensSold) {
+                        totalTokens = await presaleContract.totalTokensSold();
+                        totalTokens = parseFloat(ethers.utils.formatEther(totalTokens));
+                    } else if (presaleContract.soldTokens) {
+                        totalTokens = await presaleContract.soldTokens();
+                        totalTokens = parseFloat(ethers.utils.formatEther(totalTokens));
+                    }
+                } catch (e) {
+                    console.log('Could not get total tokens:', e);
+                }
+
+                try {
+                    // Try common function names for participants
+                    if (presaleContract.totalParticipants) {
+                        participants = await presaleContract.totalParticipants();
+                        participants = participants.toNumber();
+                    } else if (presaleContract.participantCount) {
+                        participants = await presaleContract.participantCount();
+                        participants = participants.toNumber();
+                    }
+                } catch (e) {
+                    console.log('Could not get participants:', e);
+                }
+
+                try {
+                    // Try common function names for referrals
+                    if (presaleContract.totalReferrals) {
+                        referrals = await presaleContract.totalReferrals();
+                        referrals = referrals.toNumber();
+                    }
+                } catch (e) {
+                    console.log('Could not get referrals:', e);
+                }
                 
                 document.getElementById('admin-total-usdt').textContent = totalUSDT.toFixed(2);
                 document.getElementById('admin-total-tokens').textContent = totalTokens.toFixed(2);
@@ -1686,6 +1744,7 @@
                 document.getElementById('admin-progress-fill').style.width = progress + '%';
             } catch (error) {
                 console.error('Error updating admin stats:', error);
+                showToast('Error loading admin stats', 'error');
             }
         }
 
@@ -1728,13 +1787,61 @@
             
             const network = await window.ethereum.request({ method: 'eth_chainId' });
             const statusEl = document.getElementById('network-status');
+            const switchBtn = document.getElementById('switch-network-btn');
             
             if (network.toLowerCase() === BASE_CHAIN_ID.toLowerCase()) {
                 statusEl.textContent = '✅ Connected to Base Network';
                 statusEl.className = 'network-status connected';
+                switchBtn.style.display = 'none';
+                return true;
             } else {
                 statusEl.textContent = '⚠️ Please switch to Base Network';
                 statusEl.className = 'network-status wrong-network';
+                switchBtn.style.display = 'block';
+                return false;
+            }
+        }
+
+        // Switch to Base Network
+        async function switchToBaseNetwork() {
+            if (!window.ethereum) {
+                showToast('Please install MetaMask or Trust Wallet', 'error');
+                return;
+            }
+
+            try {
+                await window.ethereum.request({
+                    method: 'wallet_switchEthereumChain',
+                    params: [{ chainId: BASE_CHAIN_ID }],
+                });
+            } catch (switchError) {
+                // This error code indicates that the chain has not been added to MetaMask.
+                if (switchError.code === 4902) {
+                    try {
+                        await window.ethereum.request({
+                            method: 'wallet_addEthereumChain',
+                            params: [
+                                {
+                                    chainId: BASE_CHAIN_ID,
+                                    chainName: 'Base',
+                                    nativeCurrency: {
+                                        name: 'ETH',
+                                        symbol: 'ETH',
+                                        decimals: 18,
+                                    },
+                                    rpcUrls: ['https://mainnet.base.org'],
+                                    blockExplorerUrls: ['https://basescan.org'],
+                                },
+                            ],
+                        });
+                    } catch (addError) {
+                        console.error('Error adding Base network:', addError);
+                        showToast('Failed to add Base network', 'error');
+                    }
+                } else {
+                    console.error('Error switching to Base network:', switchError);
+                    showToast('Failed to switch to Base network', 'error');
+                }
             }
         }
 
@@ -1771,6 +1878,13 @@
                 return;
             }
 
+            // Check network before proceeding
+            const isCorrectNetwork = await checkNetwork();
+            if (!isCorrectNetwork) {
+                showToast('Please switch to Base Network first', 'warning');
+                return;
+            }
+
             const usdtAmount = document.getElementById('usdtInput').value;
             if (!usdtAmount || parseFloat(usdtAmount) <= 0) {
                 showToast('Please enter a valid USDT amount', 'warning');
@@ -1782,19 +1896,28 @@
                 const btn = document.getElementById('approve-btn');
                 btn.classList.add('loading');
                 btn.innerHTML = '<span class="spinner"></span> Approving...';
+                btn.disabled = true;
                 
                 const tx = await usdtContract.approve(presaleAddress, amount);
                 await tx.wait();
                 
                 btn.classList.remove('loading');
                 btn.textContent = translations[currentLang].approveBtn;
+                btn.disabled = false;
                 showToast('USDT approved successfully', 'success');
             } catch (error) {
-                console.error(error);
+                console.error('Approval error:', error);
                 const btn = document.getElementById('approve-btn');
                 btn.classList.remove('loading');
                 btn.textContent = translations[currentLang].approveBtn;
-                showToast('Failed to approve USDT', 'error');
+                btn.disabled = false;
+                
+                // Check if user rejected the transaction
+                if (error.code === 4001 || error.message.includes('user rejected')) {
+                    showToast('Transaction rejected by user', 'warning');
+                } else {
+                    showToast('Failed to approve USDT: ' + (error.message || 'Unknown error'), 'error');
+                }
             }
         }
 
@@ -1802,6 +1925,13 @@
         async function buyTokens() {
             if (!userAddress) {
                 showToast('Please connect your wallet first', 'warning');
+                return;
+            }
+
+            // Check network before proceeding
+            const isCorrectNetwork = await checkNetwork();
+            if (!isCorrectNetwork) {
+                showToast('Please switch to Base Network first', 'warning');
                 return;
             }
 
@@ -1818,12 +1948,14 @@
                 const btn = document.getElementById('buy-btn');
                 btn.classList.add('loading');
                 btn.innerHTML = '<span class="spinner"></span> Buying...';
+                btn.disabled = true;
                 
                 const tx = await presaleContract.buyTokens(amount, referrer || '0x0000000000000000000000000000000000000000');
                 await tx.wait();
                 
                 btn.classList.remove('loading');
                 btn.textContent = translations[currentLang].buyBtn;
+                btn.disabled = false;
                 
                 await updateBalances();
                 showToast('Tokens purchased successfully', 'success');
@@ -1831,11 +1963,18 @@
                 document.getElementById('usdtInput').value = '';
                 document.getElementById('fixerOutput').value = '';
             } catch (error) {
-                console.error(error);
+                console.error('Buy error:', error);
                 const btn = document.getElementById('buy-btn');
                 btn.classList.remove('loading');
                 btn.textContent = translations[currentLang].buyBtn;
-                showToast('Failed to buy tokens', 'error');
+                btn.disabled = false;
+                
+                // Check if user rejected the transaction
+                if (error.code === 4001 || error.message.includes('user rejected')) {
+                    showToast('Transaction rejected by user', 'warning');
+                } else {
+                    showToast('Failed to buy tokens: ' + (error.message || 'Unknown error'), 'error');
+                }
             }
         }
 
@@ -1846,29 +1985,42 @@
                 return;
             }
 
+            // Check network before proceeding
+            const isCorrectNetwork = await checkNetwork();
+            if (!isCorrectNetwork) {
+                showToast('Please switch to Base Network first', 'warning');
+                return;
+            }
+
             try {
                 const btn = document.getElementById('claim-btn');
                 btn.classList.add('loading');
                 btn.innerHTML = '<span class="spinner"></span> Claiming...';
+                btn.disabled = true;
                 
                 const tx = await presaleContract.claimTokens();
                 await tx.wait();
                 
                 btn.classList.remove('loading');
                 btn.textContent = translations[currentLang].claimBtn;
+                btn.disabled = false;
                 
                 await updateBalances();
                 showToast('Tokens claimed successfully', 'success');
             } catch (error) {
-                console.error(error);
+                console.error('Claim error:', error);
                 const btn = document.getElementById('claim-btn');
                 btn.classList.remove('loading');
                 btn.textContent = translations[currentLang].claimBtn;
+                btn.disabled = false;
                 
-                if (error.message.includes('Claim is not active yet')) {
+                // Check if user rejected the transaction
+                if (error.code === 4001 || error.message.includes('user rejected')) {
+                    showToast('Transaction rejected by user', 'warning');
+                } else if (error.message.includes('Claim is not active yet')) {
                     showToast('Claim is not active yet', 'warning');
                 } else {
-                    showToast('Failed to claim tokens', 'error');
+                    showToast('Failed to claim tokens: ' + (error.message || 'Unknown error'), 'error');
                 }
             }
         }
