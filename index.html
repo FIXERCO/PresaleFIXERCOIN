@@ -480,14 +480,17 @@
             }
 
             .paper-image {
-                transform: scale(3);
+                transform: scale(3) translateX(-50%);
                 max-width: none;
                 width: 100%;
+                left: 50%;
+                position: relative;
             }
 
             .paper-image-section {
                 margin-top: 200px;
                 margin-bottom: 200px;
+                overflow-x: hidden;
             }
 
             .paper-title {
@@ -496,7 +499,7 @@
         }
 
         .guide-card {
-            background: rgba(255, 200, 100, 0.85);
+            background: rgba(255, 200, 100, 0.95);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 24px;
             padding: 30px;
