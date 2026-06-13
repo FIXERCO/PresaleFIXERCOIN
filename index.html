@@ -50,6 +50,16 @@
             src: local('B Nazanin'), local('BNazanin');
         }
 
+        @font-face {
+            font-family: 'Gramophone';
+            src: local('Gramophone'), url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+        }
+
+        @font-face {
+            font-family: 'Western';
+            src: local('Western'), url('https://fonts.googleapis.com/css2?family=Rye&display=swap');
+        }
+
         :root {
             --bg-color: #2c241b;
             --card-bg: #3d3226;
@@ -263,6 +273,55 @@
             .credibility-grid {
                 grid-template-columns: 1fr;
             }
+        }
+
+        .credibility-section {
+            background: url('oldpaper.jpg') repeat;
+            background-color: #f4e4bc;
+            border: 3px solid #8b7355;
+            border-radius: 10px;
+            padding: 40px;
+            margin: 40px auto;
+            max-width: 900px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .credibility-title {
+            font-family: 'Western', serif;
+            text-align: center;
+            font-size: 32px;
+            color: #3d3226;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .credibility-content h3 {
+            font-family: 'Western', serif;
+            font-size: 24px;
+            color: #5d4e37;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .credibility-content p {
+            font-family: 'Western', serif;
+            font-size: 16px;
+            color: #3d3226;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        html[dir="rtl"] .credibility-title {
+            font-family: 'Gramophone', serif;
+        }
+
+        html[dir="rtl"] .credibility-content h3 {
+            font-family: 'Gramophone', serif;
+        }
+
+        html[dir="rtl"] .credibility-content p {
+            font-family: 'Gramophone', serif;
         }
 
         .credibility-card {
@@ -499,7 +558,7 @@
         }
 
         .guide-card {
-            background: rgba(255, 200, 100, 0.95);
+            background: rgb(255, 200, 100);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 24px;
             padding: 30px;
@@ -1170,15 +1229,23 @@
                     <button class="btn-copy" onclick="copyContractAddress()">Copy</button>
                 </div>
 
-                <!-- Paper Image Section -->
-                <div class="paper-image-section">
-                    <img src="paperen.png" alt="Credibility Paper" class="paper-image" id="paper-image">
+                <!-- Credibility Section -->
+                <div class="credibility-section">
+                    <h2 class="credibility-title" id="credibility-title">Why Participate in Fixer Coin Presale</h2>
+                    <div class="credibility-content" id="credibility-content">
+                        <h3>Project Credibility</h3>
+                        <p>Fixer Coin is the antithesis of Ponzi schemes; we have absolutely no intention of dumping tokens on our holders. True to our mission, Fixer Coin is the flagship project fighting against scams and Ponzi-like tokens. We are setting a new standard for transparency and genuine value creation. With creative development and a committed team, Fixer Coin is pioneering innovative solutions across cutting-edge fields, including Artificial Intelligence (AI), Gaming, and DeFi.</p>
+                        
+                        <h3>Strategic Growth Fees</h3>
+                        <p>Our initial 50% transaction fee is a strategic incentive designed to reward long-term holders. These accumulated fees are directly utilized for massive token burns, rewards for loyal holders, funding listings on Centralized Exchanges (CEX), and liquidity injections—all creating consistent upward pressure on the price. As the ecosystem matures, fees will be reduced step-by-step until reaching zero-fee maturity.</p>
+                        
+                        <h3>Anti-Whale Protection</h3>
+                        <p>We ensure a fair playing field for every community member. Our contract includes strict transaction limits and anti-dump mechanisms to prevent market manipulation, ensuring long-term price stability and protecting your investment from sudden volatility.</p>
+                        
+                        <h3>Hardened Security</h3>
+                        <p>Safety is our top priority. The Fixer Coin smart contract is built on the Base network using industry-standard OpenZeppelin protocols. We have integrated an emergency recovery feature to ensure your assets are safe and secure at all times.</p>
+                    </div>
                 </div>
-            </div>
-
-            <!-- Credibility Section -->
-            <div class="credibility-section">
-            </div>
 
             <div class="content-grid">
                 <div class="presale-wrapper" id="presale-section">
@@ -1328,7 +1395,7 @@
                 langBtn: "فارسی",
                 logoSubtext: "Presale",
                 paperTitle: "Presale Fixer Coin",
-                credibilityTitle: "Project Credibility",
+                credibilityTitle: "Why Participate in Fixer Coin Presale",
                 cred1Title: "Project Credibility",
                 cred1En: "Fixer Coin is the antithesis of Ponzi schemes; we have absolutely no intention of dumping tokens on our holders. True to our mission, Fixer Coin is the flagship project fighting against scams and Ponzi-like tokens. We are setting a new standard for transparency and genuine value creation. With creative development and a committed team, Fixer Coin is pioneering innovative solutions across cutting-edge fields, including Artificial Intelligence (AI), Gaming, and DeFi.",
                 cred1Fa: "«فیکسر کوین (Fixer Coin) برخلاف پروژه‌های پانزی، هیچ قصدی برای دامپ توکن بر روی هولدرهای خود ندارد. همان‌طور که از نام ما پیداست، فیکسر کوین پرچم‌دار مبارزه با ارزهای پانزی و اسکم است. ما در حال بنا کردن استانداردی جدید از شفافیت و ارزش‌آفرینی واقعی هستیم. با ایده‌های خلاقانه و تیمی متعهد، فیکسر کوین گام‌های بلندی در حوزه‌های پیشرو نظیر هوش مصنوعی (AI)، بازی‌سازی (Gaming) و امور مالی غیرمتمرکز (DeFi) خواهد برداشت.»",
@@ -1377,7 +1444,7 @@
                 langBtn: "English",
                 logoSubtext: "پیش فروش",
                 paperTitle: "پیش فروش فیکسر کوین",
-                credibilityTitle: "اعتبار پروژه",
+                credibilityTitle: "چرا در پیش فروش فیکسر کوین شرکت کنیم",
                 cred1Title: "اعتبار پروژه",
                 cred1En: "Fixer Coin is the antithesis of Ponzi schemes; we have absolutely no intention of dumping tokens on our holders. True to our mission, Fixer Coin is the flagship project fighting against scams and Ponzi-like tokens. We are setting a new standard for transparency and genuine value creation. With creative development and a committed team, Fixer Coin is pioneering innovative solutions across cutting-edge fields, including Artificial Intelligence (AI), Gaming, and DeFi.",
                 cred1Fa: "«فیکسر کوین (Fixer Coin) برخلاف پروژه‌های پانزی، هیچ قصدی برای دامپ توکن بر روی هولدرهای خود ندارد. همان‌طور که از نام ما پیداست، فیکسر کوین پرچم‌دار مبارزه با ارزهای پانزی و اسکم است. ما در حال بنا کردن استانداردی جدید از شفافیت و ارزش‌آفرینی واقعی هستیم. با ایده‌های خلاقانه و تیمی متعهد، فیکسر کوین گام‌های بلندی در حوزه‌های پیشرو نظیر هوش مصنوعی (AI)، بازی‌سازی (Gaming) و امور مالی غیرمتمرکز (DeFi) خواهد برداشت.»",
@@ -1469,6 +1536,7 @@
             document.getElementById('wallet-btn').textContent = userAddress ? `${userAddress.slice(0, 6)}...${userAddress.slice(-4)}` : t.walletBtn;
             document.getElementById('lang-btn').textContent = t.langBtn;
             document.getElementById('logo-subtext').textContent = t.logoSubtext;
+            document.getElementById('credibility-title').textContent = t.credibilityTitle;
         }
 
         // Connect wallet
